@@ -1,0 +1,57 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: Int!
+  email: String!
+  username: String!
+}
+
+type AuthType {
+  expiresIn: Int!
+  token: String!
+  refreshToken: String!
+  type: String!
+}
+
+type Joke {
+  text: String!
+  category: String!
+}
+
+type Query {
+  """[Dictionary] Allows users to get the jokes"""
+  joke(input: JokeInput!): Joke!
+}
+
+input JokeInput {
+  category: String
+}
+
+type Mutation {
+  """[Dictionary] Allows registring users"""
+  signUp(input: CreateUserInput!): User!
+
+  """[Dictionary] Allows users to be authenticated """
+  signIn(input: AuthUserInput!): AuthType!
+
+  """[Dictionary] Allows users to update the token"""
+  updateToken(input: UpdateTokenInput!): AuthType!
+}
+
+input CreateUserInput {
+  email: String!
+  username: String!
+  password: String!
+}
+
+input AuthUserInput {
+  username: String!
+  password: String!
+}
+
+input UpdateTokenInput {
+  refreshToken: String!
+  token: String!
+}
