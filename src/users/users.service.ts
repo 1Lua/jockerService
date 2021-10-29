@@ -28,6 +28,11 @@ export class UsersService {
         return !user
     }
 
+    async checkUserNameAvailability(username: string): Promise<boolean>{
+        let user = await this._usersRepository.findOne({username})
+        return !user
+    }
+
     checkPassword(password: string): boolean{
         if(password.length < MIN_PASSWORD_LENGTH){
             return false
@@ -46,7 +51,10 @@ export class UsersService {
         if(!checkPass){
             throw new Error(`Minimal password length: ${MIN_PASSWORD_LENGTH}`)
         }
-
+        let checkUsername = await this.checkUserNameAvailability(username)
+        if(!checkUsername){
+            throw new Error('Username is unaviable')
+        }
 
         let user = this._usersRepository.create({
             email,
